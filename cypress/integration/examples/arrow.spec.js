@@ -1,4 +1,4 @@
-
+/// <reference types="cypress" />
 it('nada agora', function(){})
 
 //Função padrão

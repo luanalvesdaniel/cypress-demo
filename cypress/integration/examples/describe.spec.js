@@ -1,4 +1,4 @@
-/// <references types="cypress" />
+/// <reference types="cypress" />
 
 describe.only('Should group tests...', () => {
 
