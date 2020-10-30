@@ -99,7 +99,7 @@ describe('Work with basic elements', () => {
 
     })
 
-    it.only('Combo',() => {
+    it('Combo',() => {
 
         cy.get('#formEscolaridade')
             .select('2o grau completo')
@@ -108,6 +108,17 @@ describe('Work with basic elements', () => {
         cy.get('#formEscolaridade')
             .select('1o grau completo')
             .should('have.value', '1graucomp')
+
+        //TODO validar as opções do combo
+        
+    })
+
+    it.only('Combo multiplo', () => {
+
+        cy.get('#formEsportes')
+            .select(['natacao','Corrida','nada'])
+        
+        //TODO validar opções do combo múltiplo
 
     })
 })
