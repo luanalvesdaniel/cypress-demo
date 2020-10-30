@@ -9,6 +9,7 @@ describe('Cypress basics', () => {
         //cy.pause()
 
         cy.title().should('be.equal', 'Campo de Treinamento')
+        
         cy.title().should('contain', 'Campo')
 
         cy.title()

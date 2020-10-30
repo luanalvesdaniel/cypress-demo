@@ -14,24 +14,31 @@ describe('Work with basic elements', () => {
         
         cy.get('body')
             .should('contain', 'Cuidado onde clica, muitas armadilhas...')
+
         cy.get('span')
             .should('contain', 'Cuidado onde clica, muitas armadilhas...')
+
         cy.get('.facilAchar')
             .should('contain', 'Cuidado onde clica, muitas armadilhas...')
             .should('have.text', 'Cuidado onde clica, muitas armadilhas...')
+
     })
 
     it('Links', () => {
 
         cy.get('[href="#"]')
             .click()
+
         cy.get('#resultado')
             .should('have.text', 'Voltou!')
 
         cy.reload()
+
         cy.get('#resultado')
-        .should('have.not.text', 'Voltou!')
+            .should('have.not.text', 'Voltou!')
+
         cy.contains('Voltar').click()
+
         cy.get('#resultado')
             .should('have.text', 'Voltou!')
     })
@@ -75,7 +82,7 @@ describe('Work with basic elements', () => {
 
     })
 
-    it.only('Checkbox', () => {
+    it('Checkbox', () => {
 
         cy.get('#formComidaPizza')
             .click()
@@ -89,6 +96,18 @@ describe('Work with basic elements', () => {
 
         cy.get('#formComidaVegetariana')
             .should('be.checked')
+
+    })
+
+    it.only('Combo',() => {
+
+        cy.get('#formEscolaridade')
+            .select('2o grau completo')
+            .should('have.value', '2graucomp')
+
+        cy.get('#formEscolaridade')
+            .select('1o grau completo')
+            .should('have.value', '1graucomp')
 
     })
 })
