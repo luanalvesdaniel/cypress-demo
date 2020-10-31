@@ -4,7 +4,7 @@
 
 describe('Cypress basics', () => {
     
-    it.only('Should visit a page and assert title', () => {
+    it('Should visit a page and assert title', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
         
         //cy.pause()
@@ -28,16 +28,14 @@ describe('Cypress basics', () => {
             syncTitle = title
         })
 
-        cy.get('#formSobrenome')
-            .then($el => {
-                $el.val(syncTitle)
-            })
+        cy.get('#formSobrenome').then($el => {
+            $el.val(syncTitle)
+        })
 
-        cy.get('#elementosForm\\:sugestoes')
-            .then($el => {
-                cy.wrap($el)
-                    .type(syncTitle)
-            })
+        cy.get('#elementosForm\\:sugestoes').then($el => {
+            cy.wrap($el)
+                .type(syncTitle)
+        })
 
     })
     

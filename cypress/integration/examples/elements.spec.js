@@ -109,16 +109,33 @@ describe('Work with basic elements', () => {
             .select('1o grau completo')
             .should('have.value', '1graucomp')
 
-        //TODO validar as opções do combo
-        
+        cy.get('#formEscolaridade option')
+            .should('have.length', 8)
+        cy.get('#formEscolaridade option').then($arr => {
+            const values = []
+            $arr.each(function(){
+                values.push(this.innerHTML)
+            })
+            expect(values)
+                .to.include.members(['Superior', 'Mestrado'])
+        })
+
     })
 
-    it('Combo multiplo', () => {
+    it.only('Combo multiplo', () => {
 
         cy.get('#formEsportes')
             .select(['natacao','Corrida','nada'])
-        
-        //TODO validar opções do combo múltiplo
 
-    })
+        cy.get('#formEsportes').then($el => {
+            expect($el.val())
+                .to.be.deep.equal (['natacao','Corrida','nada'])
+                .to.have.length(3)
+        })
+
+        cy.get('#formEsportes')
+            .invoke('val')
+            .should('eql', ['natacao','Corrida','nada'])
+
+        })
 })

@@ -17,11 +17,10 @@ describe('Helpers...', () => {
 
         cy.wrap(obj).should('have.property', 'nome')
 
-        cy.get('#formNome')
-            .then($el => {
-                cy.wrap($el).type('Funciona??')
-            })
-            //.type('Funciona')
+        cy.get('#formNome').then($el => {
+            cy.wrap($el).type('Funciona??')
+        })
+        //.type('Funciona')
 
         const promise = new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -29,8 +28,7 @@ describe('Helpers...', () => {
             }, 500)
         })
         
-        cy.get('#buttonSimple')
-            .then(() => console.log('Encontrei o primeiro botao'))
+        cy.get('#buttonSimple').then(() => console.log('Encontrei o primeiro botao'))
 
         //promise.then(num => console.log(10))
         cy.wrap(promise).then(ret => console.log(ret))
@@ -60,7 +58,7 @@ describe('Helpers...', () => {
 
     })
 
-    it.only('Invoke', () => {
+    it('Invoke', () => {
         const getValue = () => 1
         const soma = (a, b) => a + b
 
