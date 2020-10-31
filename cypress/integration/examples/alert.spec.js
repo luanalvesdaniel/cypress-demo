@@ -14,7 +14,7 @@ describe('Work with alerts', () => {
         
         cy.get('#alert')
             .click()
-            
+
         //trabalhando com alert
         cy.on('window:alert', msg => {
             console.log(msg)
@@ -23,4 +23,15 @@ describe('Work with alerts', () => {
 
     })
 
+    it('Alert com mock', () => {
+        
+        const stub = cy.stub().as('alerta')
+        //trabalhando com alert mock
+        cy.on('window:alert', stub)
+
+        cy.get('#alert').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('Alert Simples')
+        })
+            
+    })
 })
