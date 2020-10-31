@@ -60,7 +60,7 @@ describe('Helpers...', () => {
 
     })
 
-    it.only('Invole', () => {
+    it.only('Invoke', () => {
         const getValue = () => 1
         const soma = (a, b) => a + b
 

@@ -3,7 +3,8 @@
 //const { describe } = require("mocha");
 
 describe('Cypress basics', () => {
-    it('Should visit a page and assert title', () => {
+    
+    it.only('Should visit a page and assert title', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
         
         //cy.pause()
@@ -16,14 +17,29 @@ describe('Cypress basics', () => {
             .should('be.equal', 'Campo de Treinamento')
             .and('contain', 'Campo')
 
+        let syncTitle
+
         cy.title().then(title => { //ou should
             console.log(title)
+
+            cy.get('#formNome')
+                .type(title)
+
+            syncTitle = title
         })
 
-        //TODO imprimir o log no console
-        //TODO escrever o title em um campo de texto
-    })
+        cy.get('#formSobrenome')
+            .then($el => {
+                $el.val(syncTitle)
+            })
 
+        cy.get('#elementosForm\\:sugestoes')
+            .then($el => {
+                cy.wrap($el)
+                    .type(syncTitle)
+            })
+
+    })
     
     it('Should find and interact with an elemente', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
