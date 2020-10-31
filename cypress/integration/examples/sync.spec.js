@@ -98,11 +98,27 @@ describe('Esperas...', () => {
 
     })
 
-    it.only('Click retry', () => {
+    it('Click retry', () => {
+
         cy.get('#buttonCount')
             .click()
             .click()
             .should('have.value', '111')
+    })
+
+    it.only('Should vs Then', () => {
+
+        cy.get('#buttonListDOM')
+            .click()
+
+        //cy.wait(5000)
+
+        cy.get('#lista li span')
+            .then($el => { //usando o should fica em loop infinito por causa do novo get
+                //.should('have.length', 1)
+                expect($el).to.have.length(1)
+                cy.get('#buttonList')
+            })
     })
 
 })
