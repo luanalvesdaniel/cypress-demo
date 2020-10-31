@@ -113,7 +113,7 @@ describe('Work with basic elements', () => {
         
     })
 
-    it.only('Combo multiplo', () => {
+    it('Combo multiplo', () => {
 
         cy.get('#formEsportes')
             .select(['natacao','Corrida','nada'])
