@@ -66,4 +66,24 @@ describe('Work with alerts', () => {
         })
 
     })
+
+    it.only('Prompt', () => {
+        
+        cy.window().then(win => {
+            cy.stub(win, 'prompt')
+                .returns('50')
+        })
+
+        cy.get('#prompt')
+            .click()
+
+        cy.on('window:confirm', msg => {
+            expect(msg).to.be.equal('Era 50?')
+        })
+
+        cy.on('window:alert', msg => {
+            expect(msg).to.be.equal(':D')
+        })
+
+    })
 })
