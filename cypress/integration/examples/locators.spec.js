@@ -28,4 +28,8 @@ describe('Locators', () => {
             .type('jquery2')
     })
 
+    it('using xpath cypress', () => {
+        cy.xpath('//input')
+    })
+
 })
