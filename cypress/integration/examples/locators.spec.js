@@ -29,7 +29,17 @@ describe('Locators', () => {
     })
 
     it('using xpath cypress', () => {
-        cy.xpath('//input')
-    })
+        
+        cy.xpath("//input[contains(@onclick, 'Francisco')]")
+            .click()
+        cy.xpath('//input[contains(@onclick, \'Francisco\')]')
+            .click()
 
+        cy.xpath("//table[@id='tabelaUsuarios']//td[contains(., 'Francisco')]/..//input[@type='text']")
+            .type("funciona")
+           
+        cy.xpath("//td[contains(., 'Usuario A')]/following-sibling::td[contains(., 'Mestrado')]/..//input[@type='text']")
+            .type('funciona')
+
+    })
 })
