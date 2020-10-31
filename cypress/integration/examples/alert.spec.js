@@ -87,7 +87,7 @@ describe('Work with alerts', () => {
 
     })
 
-    it.only('Validando mensagens', () => {
+    it('Validando mensagens', () => {
         
         const stub = cy.stub().as('alerta')
 
