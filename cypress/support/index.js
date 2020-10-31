@@ -18,3 +18,17 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+Cypress.SelectorPlayground.defaults({
+    selectorPriority: 
+        [
+            'id', 
+            'class', 
+            'data-cy', 
+            'data-test', 
+            'data-testid', 
+            'attributes',
+            'tag',
+            'nth-child'
+        ]         
+})
