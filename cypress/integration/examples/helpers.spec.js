@@ -1,9 +1,5 @@
 /// <reference types="cypress" />
 
-//const { reject } = require("cypress/types/bluebird")
-
-//const { expect } = require("chai")
-
 describe('Helpers...', () => {
 
     before(() => {
@@ -41,6 +37,26 @@ describe('Helpers...', () => {
 
         cy.get('#buttonList')
             .then(() => console.log('Encontrei o segundo botao'))
+
+    })
+
+    it.only('Its...', () => {
+
+        const obj = {nome: 'User', idade: 28}
+        cy.wrap(obj).
+            should('have.property', 'nome', 'User')
+
+        cy.wrap(obj).its('nome')
+            .should('be.equal', 'User')
+
+        const obj2 = {nome: 'User', idade: 28, endereco: { rua: 'dos bobos'}}
+        cy.wrap(obj2).its('endereco')
+            .should('have.property', 'rua')
+        cy.wrap(obj2).its('endereco.rua')
+            .should('contain', 'bobos')
+
+        cy.title().its('length')
+            .should('be.equal', 20)
 
     })
 })
