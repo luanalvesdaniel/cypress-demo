@@ -31,4 +31,12 @@ describe('Deve testar a nivel funcional', () => {
 
     })
 
+    it('Não deve inserir conta com mesmo nome', () => {
+
+        cy.acessarMenuConta()
+        cy.get(loc.CONTAS.NOME).type('Conta alterada')
+        cy.get(loc.CONTAS.BTN_SALVAR).click()
+        cy.get(loc.MESSAGE).should('contain', 'code 400')
+
+    })
 })
