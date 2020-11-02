@@ -6,10 +6,8 @@ describe('Deve testar a nivel funcional', () => {
 
     before(() => {
         cy.visit('http://barrigareact.wcaquino.me/')
-        cy.get(loc.LOGIN.USER).type('luan@luan')
-        cy.get(loc.LOGIN.PASSWORD).type('luan')
-        cy.get(loc.LOGIN.BTN_LOGIN).click()
-        cy.get(loc.MESSAGE).should('contain', 'Bem vindo')
+        cy.login('luan@luan', 'luan')
+        cy.resetApp()
     })
 
     it('Deve criar a conta', () => {
@@ -26,13 +24,10 @@ describe('Deve testar a nivel funcional', () => {
 
         cy.get(loc.MENU.SETTINGS).click()
         cy.get(loc.MENU.CONTAS).click()
-
         cy.xpath(loc.CONTAS.XP_BTN_ALTERAR).click()
-
         cy.get(loc.CONTAS.NOME)
             .clear()
             .type('Conta alterada')
-
         cy.get(loc.CONTAS.BTN_SALVAR).click()
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso')
 
