@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import loc from '../../../support/locators'
+import '../../../support/commandsContas'
 
 describe('Deve testar a nivel funcional', () => {
 
@@ -12,18 +13,15 @@ describe('Deve testar a nivel funcional', () => {
 
     it('Deve criar a conta', () => {
 
-        cy.get(loc.MENU.SETTINGS).click()
-        cy.get(loc.MENU.CONTAS).click()
-        cy.get(loc.CONTAS.NOME).type("Conta nova2")
-        cy.get(loc.CONTAS.BTN_SALVAR).click()
+        cy.acessarMenuConta()
+        cy.inserirConta('Conta nova')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
 
     })
 
     it('Deve alterar a conta', () => {
 
-        cy.get(loc.MENU.SETTINGS).click()
-        cy.get(loc.MENU.CONTAS).click()
+        cy.acessarMenuConta()
         cy.xpath(loc.CONTAS.XP_BTN_ALTERAR).click()
         cy.get(loc.CONTAS.NOME)
             .clear()
