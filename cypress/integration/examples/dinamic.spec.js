@@ -38,6 +38,37 @@ describe('Dinamic tests', () => {
         })
     })
 
+    it.only('Deve selecionar todos usando o Each', () => {
+        
+        cy.get('#formNome')
+            .type('Luan')
     
+        cy.get('#formSobrenome')
+            .type('Alves')
+
+        cy.get(`[name=formSexo][value=M]`)
+            .click()
+
+        cy.get('[name=formComidaFavorita]').each($el => {
+            //$el.click
+            if ($el.val() != 'vegetariano')
+                cy.wrap($el).click()
+        })
+            
+        cy.get('#formEscolaridade')
+            .select('Doutorado')
+
+        cy.get('#formEsportes')
+            .select('Corrida')
+        
+
+
+        cy.get('#formCadastrar')
+            .click()
+
+        cy.get('#resultado')
+            .should('contain', 'Cadastrado!')
+
+    })    
 
 })
