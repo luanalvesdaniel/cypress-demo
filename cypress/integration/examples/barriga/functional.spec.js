@@ -1,38 +1,40 @@
 /// <reference types="cypress" />
 
+import loc from '../../../support/locators'
+
 describe('Deve testar a nivel funcional', () => {
 
     before(() => {
         cy.visit('http://barrigareact.wcaquino.me/')
-        cy.get('.input-group > .form-control').type('luan@luan')
-        cy.get(':nth-child(2) > .form-control').type('luan')
-        cy.get('.btn').click()
-        cy.get('.toast-message').should('contain', 'Bem vindo')
+        cy.get(loc.LOGIN.USER).type('luan@luan')
+        cy.get(loc.LOGIN.PASSWORD).type('luan')
+        cy.get(loc.LOGIN.BTN_LOGIN).click()
+        cy.get(loc.MESSAGE).should('contain', 'Bem vindo')
     })
 
     it('Deve criar a conta', () => {
 
-        cy.get('[data-test=menu-settings]').click()
-        cy.get('[href="/contas"]').click()
-        cy.get('[data-test=nome]').type("Conta nova2")
-        cy.get('.btn').click()
-        cy.get('.toast-message').should('contain', 'Conta inserida com sucesso')
+        cy.get(loc.MENU.SETTINGS).click()
+        cy.get(loc.MENU.CONTAS).click()
+        cy.get(loc.CONTAS.NOME).type("Conta nova2")
+        cy.get(loc.CONTAS.BTN_SALVAR).click()
+        cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
 
     })
 
     it('Deve alterar a conta', () => {
 
-        cy.get('[data-test=menu-settings]').click()
-        cy.get('[href="/contas"]').click()
+        cy.get(loc.MENU.SETTINGS).click()
+        cy.get(loc.MENU.CONTAS).click()
 
-        cy.xpath("//table//td[contains(.,'Conta nova')]/..//i[@class='far fa-edit']").click()
+        cy.xpath(loc.CONTAS.XP_BTN_ALTERAR).click()
 
-        cy.get('[data-test=nome]')
+        cy.get(loc.CONTAS.NOME)
             .clear()
             .type('Conta alterada')
 
-        cy.get('.btn').click()
-        cy.get('.toast-message').should('contain', 'Conta atualizada com sucesso')
+        cy.get(loc.CONTAS.BTN_SALVAR).click()
+        cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso')
 
     })
 
