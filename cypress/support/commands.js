@@ -52,7 +52,7 @@ Cypress.Commands.add('resetApp', () => {
 Cypress.Commands.add('getToken', (user, pass) => {
     cy.request({
         method: 'POST',
-        url: 'https://barrigarest.wcaquino.me/signin',
+        url: '/signin',
         body: {
             email: user,
             redirecionar: false,
@@ -62,4 +62,14 @@ Cypress.Commands.add('getToken', (user, pass) => {
         .then(token => {
             return token
         })
+})
+
+Cypress.Commands.add('resetRest', () => {
+    cy.getToken('luan@luan', 'luan').then(token => {
+        cy.request({
+            method: 'GET',
+            url: '/reset',
+            headers: { Authorization: `JWT ${token}`}
+        }).its('status').should('be.equal', 200)
+    })
 })

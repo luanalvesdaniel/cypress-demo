@@ -12,31 +12,30 @@ describe('Deve testar a nivel funcional', () => {
     })
 
     beforeEach(() => {
-        //cy.get(loc.MENU.HOME).click()
-        //cy.resetApp()
+        cy.resetRest()
     })
 
-    it.only('Deve criar a conta', () => {
+    it('Deve criar a conta', () => {
 
         cy.request({
-            url: 'https://barrigarest.wcaquino.me/contas',
+            url: '/contas',
             method: 'POST',
             headers: { Authorization: `JWT ${token}`},
             body: {
-                nome: "Conta via rest3"
+                nome: "Conta via rest"
             }
         }).as('response')
         
         cy.get('@response').then(res => {
             expect(res.status).to.be.equal(201)
             expect(res.body).to.have.property('id')
-            expect(res.body).to.have.property('nome', 'Conta via rest3')
+            expect(res.body).to.have.property('nome', 'Conta via rest')
         })
 
     })
 
     it('Deve alterar a conta', () => {
-
+        
     })
 
     it('Não deve inserir conta com mesmo nome', () => {
