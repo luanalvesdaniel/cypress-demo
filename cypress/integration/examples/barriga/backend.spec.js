@@ -2,8 +2,13 @@
 
 describe('Deve testar a nivel funcional', () => {
 
+
+    let token
     before(() => {
-        //cy.login('luan@luan', 'luan')
+        cy.getToken('luan@luan', 'luan')
+            .then(tkn => {
+                token = tkn
+            })
     })
 
     beforeEach(() => {
@@ -12,26 +17,15 @@ describe('Deve testar a nivel funcional', () => {
     })
 
     it.only('Deve criar a conta', () => {
-        
+
         cy.request({
+            url: 'https://barrigarest.wcaquino.me/contas',
             method: 'POST',
-            url: 'https://barrigarest.wcaquino.me/signin',
+            headers: { Authorization: `JWT ${token}`},
             body: {
-                email: "luan@luan",
-                redirecionar: false,
-                senha: "luan"
+                nome: "Conta via rest3"
             }
-        }).its('body.token').should('not.be.empty')
-        .then(token => {
-            cy.request({
-                url: 'https://barrigarest.wcaquino.me/contas',
-                method: 'POST',
-                headers: { Authorization: `JWT ${token}`},
-                body: {
-                    nome: "Conta via rest3"
-                }
-            }).as('response')
-        })
+        }).as('response')
         
         cy.get('@response').then(res => {
             expect(res.status).to.be.equal(201)
