@@ -10,12 +10,8 @@ describe('Deve testar a nivel frontend com mock', () => {
         cy.clearLocalStorage()
     })
 
-    before(() => {
-       
-    })
-
     beforeEach(() => {
-        
+
         buildEnv()
         cy.login('luan@luan', 'senha errada')
         cy.get(loc.MENU.HOME).click()
@@ -75,7 +71,15 @@ describe('Deve testar a nivel frontend com mock', () => {
 
     })
 
-    it('Não deve inserir conta com mesmo nome', () => {
+    it.only('Não deve inserir conta com mesmo nome', () => {
+
+        cy.route({
+            method: 'POST',
+            url: '/contas',
+            response: 
+                {"error":"Já existe uma conta com esse nome!"},
+                status: 400
+        }).as('saveContaMesmoNome')
 
         cy.acessarMenuConta()
         cy.get(loc.CONTAS.NOME).type('Conta mesmo nome')
