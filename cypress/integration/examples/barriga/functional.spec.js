@@ -6,7 +6,6 @@ import '../../../support/commandsContas'
 describe('Deve testar a nivel funcional', () => {
 
     before(() => {
-        cy.visit('http://barrigareact.wcaquino.me/')
         cy.login('luan@luan', 'luan')
     })
 

@@ -117,7 +117,7 @@ describe('Deve testar a nivel frontend com mock', () => {
 
     })
 
-    it.only('Deve pegar o saldo', () => {
+    it('Deve pegar o saldo', () => {
 
         cy.route({
             method: 'PUT',
@@ -151,6 +151,13 @@ describe('Deve testar a nivel frontend com mock', () => {
     })
 
     it('Deve remover movimentacao', () => {
+
+        cy.route({
+            method: 'DELETE',
+            url: '/transacoes/**',
+            response: {},
+            status: 204
+        }).as('del')
 
         cy.get(loc.MENU.EXTRATO).click()
         cy.xpath(loc.EXTRATO.FN_XP_REMOVER_ELEMENTO('Movimentacao para exclusao')).click()
