@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-import loc from '../../../support/locators'
-import '../../../support/commandsContas'
-import buildEnv from '../../../support/buildEnv'
+import loc from '../../support/locators'
+import '../../support/commandsContas'
+import buildEnv from '../../support/buildEnv'
 
 describe('Deve testar a nivel frontend com mock', () => {
 

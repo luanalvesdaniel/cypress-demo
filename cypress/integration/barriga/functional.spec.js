@@ -1,9 +1,13 @@
 /// <reference types="cypress" />
 
-import loc from '../../../support/locators'
-import '../../../support/commandsContas'
+import loc from '../../support/locators'
+import '../../support/commandsContas'
 
 describe('Deve testar a nivel funcional', () => {
+
+    after(()=>{
+        cy.clearLocalStorage()
+    })
 
     before(() => {
         cy.login('luan@luan', 'luan')
