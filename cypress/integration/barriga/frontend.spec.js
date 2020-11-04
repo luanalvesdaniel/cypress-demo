@@ -165,4 +165,51 @@ describe('Deve testar a nivel frontend com mock', () => {
 
     })
 
+    it.only('Deve validar os dados para criar a conta', () => {
+
+        //forma 3
+        const reqStub = cy.stub()
+
+        cy.route({
+            method: 'POST',
+            url: '/contas',
+            response: 
+                { id: 113, nome: 'Conta nova', visivel: true, usuario_id: 1000 },
+            //forma 2
+            /*
+            onRequest: req => {
+                expect(req.request.body.nome).to.be.not.empty
+                expect(req.request.headers).to.have.property('Authorization')
+            }*/
+
+            //forma 3
+            onRequest: reqStub
+        }).as('saveConta')
+
+        cy.acessarMenuConta()
+
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [
+                { id: 111, nome: 'Carteira', visivel: true, usuario_id: 1000 },
+                { id: 112, nome: 'Banco', visivel: true, usuario_id: 1000 },
+                { id: 113, nome: 'Conta nova', visivel: true, usuario_id: 1000 }]
+        }).as('contasSave')
+
+        cy.inserirConta('{CONTROL}')
+        //Validando dados da requisicao
+
+        //forma 1
+        //cy.wait('@saveConta').its('request.body.nome').should('not.be.empty')
+
+        //forma 3
+        cy.wait('@saveConta').then(()=>{
+            expect(reqStub.args[0][0].request.body.nome).to.be.empty
+            expect(reqStub.args[0][0].request.headers).to.have.property('Authorization')
+        })
+        cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
+
+    })
+
 })
