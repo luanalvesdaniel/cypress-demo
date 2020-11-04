@@ -70,10 +70,34 @@ describe('Deve testar a nivel frontend com mock', () => {
 
     })
 
-    it('Deve alterar a conta', () => {
+    it.only('Deve alterar a conta', () => {
+
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [
+                { id: 111, nome: 'Carteira', visivel: true, usuario_id: 1000 },
+                { id: 112, nome: 'Banco', visivel: true, usuario_id: 1000 }]
+        }).as('contas')
+
+        cy.route({
+            method: 'PUT',
+            url: '/contas/**',
+            response: 
+                { id: 111, nome: 'Conta alterada', visivel: true, usuario_id: 1000 }
+        }).as('contasAlterada')
 
         cy.acessarMenuConta()
-        cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Conta para alterar')).click()
+
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [
+                { id: 111, nome: 'Conta alterada', visivel: true, usuario_id: 1000 },
+                { id: 112, nome: 'Banco', visivel: true, usuario_id: 1000 }]
+        }).as('contas')
+
+        cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Carteira')).click()
         cy.get(loc.CONTAS.NOME)
             .clear()
             .type('Conta alterada')
