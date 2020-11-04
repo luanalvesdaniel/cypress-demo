@@ -37,6 +37,13 @@ const buildEnv = () => {
             {"conta":"Conta para extrato","id":288214,"descricao":"Movimentacao para extrato","envolvido":"FFF","observacao":null,"tipo":"DESP","data_transacao":"2020-11-03T03:00:00.000Z","data_pagamento":"2020-11-03T03:00:00.000Z","valor":"-220.00","status":true,"conta_id":317579,"usuario_id":12145,"transferencia_id":null,"parcelamento_id":null}]
     })
 
+    cy.route({
+        method: 'GET',
+        url: '/transacoes/**',
+        response: 
+            {"conta": "Conta para saldo","id": 288211,"descricao": "Movimentacao 1, calculo saldo", "envolvido": "CCC", "observacao": null, "tipo": "REC", "data_transacao": "2020-11-03T03:00:00.000Z", "data_pagamento": "2020-11-03T03:00:00.000Z", "valor": "3500.00", "status": false, "conta_id": 317578, "usuario_id": 12145, "transferencia_id": null, "parcelamento_id": null }
+    })
+
 }
 
 export default buildEnv
