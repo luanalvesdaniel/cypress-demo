@@ -5,8 +5,14 @@ import '../../../support/commandsContas'
 
 describe('Deve testar a nivel frontend com mock', () => {
 
+    after(() => {
+        cy.clearLocalStorage()
+    })
+
     before(() => {
+
         cy.server()
+
         cy.route({
             method: 'POST',
             url: '/signin',
@@ -31,7 +37,9 @@ describe('Deve testar a nivel frontend com mock', () => {
                 saldo: '10000000.00'
             }]
         }).as('saldo')
+
         cy.login('luan@luan', 'senha errada')
+
     })
 
     beforeEach(() => {
@@ -39,7 +47,7 @@ describe('Deve testar a nivel frontend com mock', () => {
         cy.resetApp()
     })
 
-    it('Deve criar a conta', () => {
+    it.only('Deve criar a conta', () => {
 
         cy.acessarMenuConta()
         cy.inserirConta('Conta nova')
