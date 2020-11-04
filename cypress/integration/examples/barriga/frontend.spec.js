@@ -2,6 +2,7 @@
 
 import loc from '../../../support/locators'
 import '../../../support/commandsContas'
+import buildEnv from '../../../support/buildEnv'
 
 describe('Deve testar a nivel frontend com mock', () => {
 
@@ -10,42 +11,18 @@ describe('Deve testar a nivel frontend com mock', () => {
     })
 
     before(() => {
-
-        cy.server()
-
-        cy.route({
-            method: 'POST',
-            url: '/signin',
-            response: 
-                { id: 1000, nome: 'usuario falso', token: 'uma string muito grande que nao deveria ser aceito mas que na verdade vai' }
-        }).as('signin')
-
-        cy.route({
-            method: 'GET',
-            url: '/saldo',
-            response: [
-                { conta_id: 9999, conta: 'Carteira', saldo: '100.00' },
-                { conta_id: 9909, conta: 'Banco', saldo: '10000000.00' }]
-        }).as('saldo')
-
-        cy.login('luan@luan', 'senha errada')
-
+       
     })
 
     beforeEach(() => {
+        
+        buildEnv()
+        cy.login('luan@luan', 'senha errada')
         cy.get(loc.MENU.HOME).click()
         //cy.resetApp()
     })
 
     it('Deve criar a conta', () => {
-
-        cy.route({
-            method: 'GET',
-            url: '/contas',
-            response: [
-                { id: 111, nome: 'Carteira', visivel: true, usuario_id: 1000 },
-                { id: 112, nome: 'Banco', visivel: true, usuario_id: 1000 }]
-        }).as('contas')
 
         cy.route({
             method: 'POST',
@@ -70,25 +47,17 @@ describe('Deve testar a nivel frontend com mock', () => {
 
     })
 
-    it.only('Deve alterar a conta', () => {
-
-        cy.route({
-            method: 'GET',
-            url: '/contas',
-            response: [
-                { id: 111, nome: 'Carteira', visivel: true, usuario_id: 1000 },
-                { id: 112, nome: 'Banco', visivel: true, usuario_id: 1000 }]
-        }).as('contas')
-
+    it('Deve alterar a conta', () => {
+ 
         cy.route({
             method: 'PUT',
             url: '/contas/**',
             response: 
                 { id: 111, nome: 'Conta alterada', visivel: true, usuario_id: 1000 }
-        }).as('contasAlterada')
+        })
 
         cy.acessarMenuConta()
-
+/*
         cy.route({
             method: 'GET',
             url: '/contas',
@@ -96,7 +65,7 @@ describe('Deve testar a nivel frontend com mock', () => {
                 { id: 111, nome: 'Conta alterada', visivel: true, usuario_id: 1000 },
                 { id: 112, nome: 'Banco', visivel: true, usuario_id: 1000 }]
         }).as('contas')
-
+*/
         cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Carteira')).click()
         cy.get(loc.CONTAS.NOME)
             .clear()
