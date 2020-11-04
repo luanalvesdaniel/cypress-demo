@@ -16,26 +16,16 @@ describe('Deve testar a nivel frontend com mock', () => {
         cy.route({
             method: 'POST',
             url: '/signin',
-            response: {
-                id: 1000,
-                nome: 'usuario falso', 
-                token: 'uma string muito grande que nao deveria ser aceito mas que na verdade vai'
-            }
+            response: 
+                { id: 1000, nome: 'usuario falso', token: 'uma string muito grande que nao deveria ser aceito mas que na verdade vai' }
         }).as('signin')
 
         cy.route({
             method: 'GET',
             url: '/saldo',
-            response: [{
-                conta_id: 9999, 
-                conta: 'Carteira',
-                saldo: '100.00'
-            },
-            {
-                conta_id: 9909, 
-                conta: 'Banco',
-                saldo: '10000000.00'
-            }]
+            response: [
+                { conta_id: 9999, conta: 'Carteira', saldo: '100.00' },
+                { conta_id: 9909, conta: 'Banco', saldo: '10000000.00' }]
         }).as('saldo')
 
         cy.login('luan@luan', 'senha errada')
@@ -44,12 +34,37 @@ describe('Deve testar a nivel frontend com mock', () => {
 
     beforeEach(() => {
         cy.get(loc.MENU.HOME).click()
-        cy.resetApp()
+        //cy.resetApp()
     })
 
-    it.only('Deve criar a conta', () => {
+    it('Deve criar a conta', () => {
+
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [
+                { id: 111, nome: 'Carteira', visivel: true, usuario_id: 1000 },
+                { id: 112, nome: 'Banco', visivel: true, usuario_id: 1000 }]
+        }).as('contas')
+
+        cy.route({
+            method: 'POST',
+            url: '/contas',
+            response: 
+                { id: 113, nome: 'Conta nova', visivel: true, usuario_id: 1000 }
+        }).as('saveConta')
 
         cy.acessarMenuConta()
+
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [
+                { id: 111, nome: 'Carteira', visivel: true, usuario_id: 1000 },
+                { id: 112, nome: 'Banco', visivel: true, usuario_id: 1000 },
+                { id: 113, nome: 'Conta nova', visivel: true, usuario_id: 1000 }]
+        }).as('contasSave')
+
         cy.inserirConta('Conta nova')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
 
