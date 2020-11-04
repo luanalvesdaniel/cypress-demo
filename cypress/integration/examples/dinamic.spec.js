@@ -38,7 +38,7 @@ describe('Dinamic tests', () => {
         })
     })
 
-    it.only('Deve selecionar todos usando o Each', () => {
+    it('Deve selecionar todos usando o Each', () => {
         
         cy.get('#formNome')
             .type('Luan')

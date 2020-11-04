@@ -1,18 +1,18 @@
 /// <reference types="cypress" />
 
-describe('Dinamic tests', () => {
+describe('Work with time', () => {
 
     beforeEach(() => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
     })
 
-    it('Voltando ao passado', () => {
+    it.only('Voltando ao passado', () => {
 
         cy.get('#buttonNow')
             .click()
 
         cy.get('#resultado > span')
-            .should('contain', '02/11/2020')
+            .should('contain', Cypress.moment().format('DD/MM/YYYY'))
 
         const dt = new Date(2012, 2, 10 ,15, 23, 50)
         cy.clock(dt.getTime())
