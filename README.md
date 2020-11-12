@@ -1,55 +1,82 @@
 # cypress
 
+__1. Programas necessários:__
 - node.js
 - vscode
 
-    npm init
+__2. Preparando e instalando Cypress:__
 
-    npm install cypress
+* Criando o arquivo de configuração:
+```
+npm init -y
+```
 
-abrindo cypress
-cria-se um script no package.json
+* Baixando os arquivos necessários para iniciar o cypress:
+```
+npm install cypress
+```
+
+__3. Abrindo cypress:__
+
+* Editar arquivo __package.json__, inserindo em __scripts__ o comando abaixo:
+```
 "open": "cypress open"
-comando: npm run open
+```
 
-plugin locator:
+* Executar no __console/git bash__:
+```
+npm run open
+```
 
-página cypress / plugins / cypress-xpath
+__4. Instalando plugin locator via xpath:
 
-    npm install -D cypress-xpath
+* Executar comando:
+```
+npm install -D cypress-xpath
+```
 
-Then include in your project's cypress/support/index.js
+* Incluir o comando abaixo no arquivo __cypress/support/index.js__:
+```
+require('cypress-xpath')
+```
 
-    require('cypress-xpath')
-
-Como usar
-
+* Como usar:
+```javascript
     it('finds list items', () => {
         cy.xpath('//ul[@class="todo-list"]//li')
             .should('have.length', 3)
     })
+```
 
+__5. Linha de comando:__
 
-Linha de comando
+* No arquivo __cypress.json__ em __scripts__:
 
-cypress.json
+```
+"run": "cypress run"
+```
 
-    "run": "cypress run"
+* No console:
+```
+comando: npm run run
+```
 
-    comando: npm run run
+* Somente algum teste:
+```
+npm run run -- --spec cypress/integration/examples/time.spec.js
+```
 
-somente algum teste
+* Para ver a execução via console:
+```
+npm run run -- --spec cypress/integration/examples/time.spec.js --headed --no-exit
+```
 
-    npm run run -- --spec cypress/integration/examples/time.spec.js
+* Escolhendo o browser:
+```
+npm run run -- --spec cypress/integration/examples/time.spec.js --browser chrome
+```
 
-para ver a execução
-
-    npm run run -- --spec cypress/integration/examples/time.spec.js --headed --no-exit
-
-escolhendo o browser
-
-    npm run run -- --spec cypress/integration/examples/time.spec.js --browser chrome
-
-executando uma pasta de testes inteira
-
-    node_modules/.bin/cypress run --spec cypress/integration/barriga/**/*
+* Executando uma pasta de testes completa:
+```
+node_modules/.bin/cypress run --spec cypress/integration/barriga/**/*
+```
