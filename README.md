@@ -28,7 +28,7 @@ __3. Abrindo cypress:__
 npm run open
 ```
 
-__4. Instalando plugin locator via xpath:
+__4. Instalando plugin locator via xpath:__
 
 * Executar comando:
 ```
