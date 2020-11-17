@@ -50,7 +50,7 @@ require('cypress-xpath')
 
 __5. Linha de comando:__
 
-* No arquivo __cypress.json__ em __scripts__:
+* Editar arquivo __package.json__, inserindo em __scripts__ o comando abaixo:
 
 ```
 "run": "cypress run"
