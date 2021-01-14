@@ -20,6 +20,7 @@
   "homepage": "https://github.com/luanalvesdaniel/cypress-demo#readme",
   "dependencies": {
     "cypress": "^5.5.0",
-    "cypress-xpath": "^1.6.0"
+    "cypress-xpath": "^1.6.0",
+    "mochawesome": "^6.2.1"
   }
 }

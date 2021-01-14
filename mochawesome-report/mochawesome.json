@@ -1,0 +1,195 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-01-14T15:10:08.042Z",
+    "end": "2021-01-14T15:10:14.590Z",
+    "duration": 6548,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "dc80ea3a-2991-42d9-b333-5c45ba7bca52",
+      "title": "",
+      "fullFile": "cypress\\integration\\barriga\\backend.spec.js",
+      "file": "cypress\\integration\\barriga\\backend.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "187a090b-41eb-43e9-b57a-29d28fed9cc4",
+          "title": "Deve testar a nivel backend",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Deve criar a conta",
+              "fullTitle": "Deve testar a nivel backend Deve criar a conta",
+              "timedOut": null,
+              "duration": 1413,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  url: '/contas',\n  method: 'POST',\n  //headers: { Authorization: `JWT ${token}`},\n  body: {\n    nome: \"Conta via rest\"\n  }\n}).as('response');\ncy.get('@response').then(function (res) {\n  expect(res.status).to.be.equal(201);\n  expect(res.body).to.have.property('id');\n  expect(res.body).to.have.property('nome', 'Conta via rest');\n});",
+              "err": {},
+              "uuid": "a7a4f84e-6259-48e9-91fa-38599f42c4c5",
+              "parentUUID": "187a090b-41eb-43e9-b57a-29d28fed9cc4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve alterar a conta",
+              "fullTitle": "Deve testar a nivel backend Deve alterar a conta",
+              "timedOut": null,
+              "duration": 1236,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.getContaByName('Conta para movimentacoes').then(function (contaId) {\n  cy.request({\n    url: \"/contas/\".concat(contaId),\n    method: 'PUT',\n    //headers: { Authorization: `JWT ${token}`},\n    body: {\n      nome: 'Conta alterada via rest'\n    }\n  }).as('response');\n});\ncy.get('@response').its('status').should('be.equal', 200);",
+              "err": {},
+              "uuid": "117474a9-5c10-4a25-a5c8-67f3d8cbb069",
+              "parentUUID": "187a090b-41eb-43e9-b57a-29d28fed9cc4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Não deve inserir conta com mesmo nome",
+              "fullTitle": "Deve testar a nivel backend Não deve inserir conta com mesmo nome",
+              "timedOut": null,
+              "duration": 687,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  url: '/contas',\n  method: 'POST',\n  //headers: { Authorization: `JWT ${token}`},\n  body: {\n    nome: \"Conta mesmo nome\"\n  },\n  failOnStatusCode: false\n}).as('response');\ncy.get('@response').then(function (res) {\n  expect(res.status).to.be.equal(400);\n  expect(res.body.error).to.be.equal('Já existe uma conta com esse nome!');\n});",
+              "err": {},
+              "uuid": "f9b955e7-404b-44a4-bce4-161cd4fb9004",
+              "parentUUID": "187a090b-41eb-43e9-b57a-29d28fed9cc4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve criar uma movimentacao",
+              "fullTitle": "Deve testar a nivel backend Deve criar uma movimentacao",
+              "timedOut": null,
+              "duration": 1218,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.getContaByName('Conta para movimentacoes').then(function (contaId) {\n  cy.request({\n    url: '/transacoes',\n    method: 'POST',\n    //headers: { Authorization: `JWT ${token}`},\n    body: {\n      conta_id: contaId,\n      data_pagamento: Cypress.moment().add({\n        days: 1\n      }).format('DD/MM/YYYY'),\n      data_transacao: Cypress.moment().format('DD/MM/YYYY'),\n      descricao: \"desc 222\",\n      envolvido: \"inter\",\n      status: true,\n      tipo: \"REC\",\n      valor: \"100\"\n    }\n  }).as('response');\n});\ncy.get('@response').its('status').should('be.equal', 201);\ncy.get('@response').its('body.id').should('exist');",
+              "err": {},
+              "uuid": "11e45ffa-de27-4b15-9cf5-cfc20cd6b096",
+              "parentUUID": "187a090b-41eb-43e9-b57a-29d28fed9cc4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve pegar o saldo",
+              "fullTitle": "Deve testar a nivel backend Deve pegar o saldo",
+              "timedOut": null,
+              "duration": 1129,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  url: '/saldo',\n  method: 'GET' //headers: { Authorization: `JWT ${token}`},\n}).then(function (res) {\n  var saldoConta = null;\n  res.body.forEach(function (c) {\n    if (c.conta === 'Conta para saldo') saldoConta = c.saldo;\n  });\n  expect(saldoConta).to.be.equal('534.00');\n});\ncy.request({\n  url: '/transacoes',\n  method: 'GET',\n  //headers: { Authorization: `JWT ${token}`},\n  qs: {\n    descricao: 'Movimentacao 1, calculo saldo'\n  }\n}).then(function (res) {\n  cy.request({\n    url: \"/transacoes/\".concat(res.body[0].id),\n    method: 'PUT',\n    //headers: { Authorization: `JWT ${token}`},\n    body: {\n      status: true,\n      data_transacao: Cypress.moment(res.body[0].data_transacao).format('DD/MM/YYYY'),\n      data_pagamento: Cypress.moment(res.body[0].data_pagamento).format('DD/MM/YYYY'),\n      descricao: res.body[0].descricao,\n      envolvido: res.body[0].envolvido,\n      valor: res.body[0].valor,\n      conta_id: res.body[0].conta_id\n    }\n  }).its('status').should('be.equal', 200);\n});\ncy.request({\n  url: '/saldo',\n  method: 'GET' //headers: { Authorization: `JWT ${token}`},\n}).then(function (res) {\n  var saldoConta = null;\n  res.body.forEach(function (c) {\n    if (c.conta === 'Conta para saldo') saldoConta = c.saldo;\n  });\n  expect(saldoConta).to.be.equal('4034.00');\n});",
+              "err": {},
+              "uuid": "e9559d83-8052-4117-91c4-f0adefe0a250",
+              "parentUUID": "187a090b-41eb-43e9-b57a-29d28fed9cc4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve remover movimentacao",
+              "fullTitle": "Deve testar a nivel backend Deve remover movimentacao",
+              "timedOut": null,
+              "duration": 838,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  url: '/transacoes',\n  method: 'GET',\n  //headers: { Authorization: `JWT ${token}`},\n  qs: {\n    descricao: 'Movimentacao para exclusao'\n  }\n}).then(function (res) {\n  cy.request({\n    url: \"/transacoes/\".concat(res.body[0].id),\n    method: 'DELETE' //headers: { Authorization: `JWT ${token}`},\n  }).its('status').should('be.equal', 204);\n});",
+              "err": {},
+              "uuid": "cfdd9fa7-8ce8-48f0-b950-570809dc4b2a",
+              "parentUUID": "187a090b-41eb-43e9-b57a-29d28fed9cc4",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "a7a4f84e-6259-48e9-91fa-38599f42c4c5",
+            "117474a9-5c10-4a25-a5c8-67f3d8cbb069",
+            "f9b955e7-404b-44a4-bce4-161cd4fb9004",
+            "11e45ffa-de27-4b15-9cf5-cfc20cd6b096",
+            "e9559d83-8052-4117-91c4-f0adefe0a250",
+            "cfdd9fa7-8ce8-48f0-b950-570809dc4b2a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 6521,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.2.1"
+    },
+    "marge": {
+      "options": null,
+      "version": "5.1.0"
+    }
+  }
+}
