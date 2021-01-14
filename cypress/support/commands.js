@@ -101,3 +101,14 @@ Cypress.Commands.overwrite('request', (originalFn, ...options) => {
     }
     return originalFn(...options)
 })
+
+Cypress.Commands.add('req', (met, ur, bod, q, test) => {
+    cy.request({
+        method: met, 
+        url: ur, 
+        body: bod, 
+        qs: q,
+        teste: test,
+        failOnStatusCode: false})
+        .as('response')
+})
